@@ -19,7 +19,6 @@ This project uses publicly available sequencing data generated as part of the Ve
 **Common name:** Long-nosed leopard lizard  
 **NCBI Taxonomy ID:** 43593  
 **BioProject:** [PRJNA1126708](https://www.ncbi.nlm.nih.gov/bioproject/PRJNA1126708)  
-**GitHub repository:** [genome_assembly_gambelia_wislizenii](https://github.com/nmshefferman/genome_assembly_gambelia_wislizenii)
 
 Project directory:
 
