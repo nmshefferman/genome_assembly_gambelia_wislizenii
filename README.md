@@ -24,7 +24,7 @@ This project uses publicly available sequencing data generated as part of the Ve
 
 Project directory on Biowulf:
 
-```text id="5rwtzx"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/
 ```
 
@@ -49,7 +49,7 @@ The overall genome assembly workflow includes:
 
 Analysis scripts are maintained in the `scripts/` directory. Raw sequencing data and large analysis outputs are stored on NIH Biowulf and are not tracked with Git.
 
-```text id="54mkbl"
+```text 
 Gambelia_wislizenii/
 ├── README.md
 ├── .gitignore
@@ -66,8 +66,6 @@ Gambelia_wislizenii/
 └── seqkit_stats.txt
 ```
 
-The `scripts/` directory is tracked in this repository. Large sequencing files and intermediate analysis outputs remain on Biowulf.
-
 ---
 
 ## Software environment
@@ -82,13 +80,13 @@ The environment was created on NIH Biowulf using Miniforge/Mamba.
 
 Mamba/Miniforge can be installed on Biowulf using:
 
-```bash id="fj5v1e"
+```bash 
 mamba_install
 ```
 
 For this project, Miniforge is installed in:
 
-```text id="4v2hzw"
+```text 
 /data/sheffermannm/conda
 ```
 
@@ -102,7 +100,7 @@ source /data/sheffermannm/conda/etc/profile.d/conda.sh
 
 The initial environment setup used:
 
-```text id="y9e9qr"
+```text 
 Conda 26.1.1
 Mamba 2.5.0
 ```
@@ -111,7 +109,7 @@ Mamba 2.5.0
 
 The `hifi_env` environment can be created with:
 
-```bash id="7bmhrz"
+```bash 
 mamba create -n hifi_env \
     -c conda-forge \
     -c bioconda \
@@ -132,7 +130,7 @@ mamba create -n hifi_env \
 
 In subsequent Biowulf sessions, activate the environment with:
 
-```bash id="l99egx"
+```bash 
 source /data/sheffermannm/conda/etc/profile.d/conda.sh
 conda activate hifi_env
 ```
@@ -157,7 +155,7 @@ conda activate hifi_env
 
 Jellyfish is run using the Biowulf module rather than the Conda environment:
 
-```bash id="0ep0fr"
+```bash 
 module load jellyfish/2.3.1
 ```
 
@@ -193,7 +191,7 @@ sbatch scripts/download_read_data.sh
 
 Raw reads are stored on Biowulf at:
 
-```text id="3i1etf"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/raw_reads/
 ```
 
@@ -201,7 +199,7 @@ Raw reads are stored on Biowulf at:
 
 The resulting compressed FASTQ files are:
 
-```text id="dhq3i1"
+```text 
 SRR29647188_R1.fastq.gz
 SRR29647188_R2.fastq.gz
 SRR29647189_R1.fastq.gz
@@ -227,7 +225,7 @@ After downloading the sequencing data, the FASTQ files were checked to confirm t
 
 Read counts were calculated from the number of lines in each FASTQ file:
 
-```bash id="3exx73"
+```bash 
 for f in raw_reads/*.fastq.gz; do
     echo -n "$(basename "$f"): "
     echo $(( $(zcat "$f" | wc -l) / 4 ))
@@ -243,7 +241,7 @@ done
 
 Total number of Omni-C read pairs across both runs:
 
-```text id="gw0ig3"
+```text 
 496,367,434
 ```
 
@@ -261,7 +259,7 @@ Total number of Omni-C read pairs across both runs:
 
 Because gzip-compressed FASTQ files can be concatenated directly, the two R1 files were combined with:
 
-```bash id="bvsuqk"
+```bash 
 cat \
     raw_reads/SRR29647188_R1.fastq.gz \
     raw_reads/SRR29647189_R1.fastq.gz \
@@ -270,7 +268,7 @@ cat \
 
 The R2 files were combined with:
 
-```bash id="shs7ue"
+```bash
 cat \
     raw_reads/SRR29647188_R2.fastq.gz \
     raw_reads/SRR29647189_R2.fastq.gz \
@@ -279,14 +277,14 @@ cat \
 
 The resulting files are:
 
-```text id="m4q3qy"
+```text 
 Gambelia_combined_R1.fastq.gz
 Gambelia_combined_R2.fastq.gz
 ```
 
 Each combined FASTQ file contains:
 
-```text id="mspc51"
+```text
 496,367,434 reads
 ```
 
@@ -298,7 +296,7 @@ The original SRA-specific FASTQ files are retained on Biowulf.
 
 Quality control was performed on the five original FASTQ files prior to downstream analysis:
 
-```text id="cd2v70"
+```text
 SRR29647188_R1.fastq.gz
 SRR29647188_R2.fastq.gz
 SRR29647189_R1.fastq.gz
@@ -314,13 +312,13 @@ Read quality was evaluated using FastQC.
 
 Because of the size of the sequencing datasets, FastQC was run as a Slurm batch job using [`scripts/fastqc.sh`](scripts/fastqc.sh):
 
-```bash id="o5a54n"
+```bash 
 sbatch scripts/fastqc.sh
 ```
 
 FastQC results are stored on Biowulf at:
 
-```text id="00uy02"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/fastqc_results/
 ```
 
@@ -340,13 +338,13 @@ FastQC was used to evaluate metrics including:
 
 FastQC results from all five FASTQ files were summarized using MultiQC:
 
-```bash id="12rh2p"
+```bash 
 multiqc fastqc_results/ -o multiqc_results/
 ```
 
 The resulting MultiQC report is stored on Biowulf at:
 
-```text id="9a8z0q"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/multiqc_results/
 ```
 
@@ -362,7 +360,7 @@ Additional read statistics were calculated using SeqKit.
 
 The analysis was run on Biowulf using [`scripts/seqkit_stats.sh`](scripts/seqkit_stats.sh):
 
-```bash id="bx76pl"
+```bash 
 sbatch scripts/seqkit_stats.sh
 ```
 
@@ -370,7 +368,7 @@ Statistics were calculated for all five original FASTQ files using `seqkit stats
 
 Results are stored at:
 
-```text id="ldw5pi"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/seqkit_stats.txt
 ```
 
@@ -396,13 +394,13 @@ A 21-mer frequency distribution was generated from the PacBio HiFi reads using J
 
 The Biowulf installation of Jellyfish 2.3.1 was used:
 
-```bash id="jqvzyj"
+```bash 
 module load jellyfish/2.3.1
 ```
 
 The analysis was run as a Slurm batch job using [`scripts/jellyfish.sh`](scripts/jellyfish.sh):
 
-```bash id="8omxgs"
+```bash
 sbatch scripts/jellyfish.sh
 ```
 
@@ -412,7 +410,7 @@ The resulting Jellyfish database was converted to a k-mer frequency histogram us
 
 Jellyfish outputs are stored on Biowulf at:
 
-```text id="e6ty00"
+```text 
 /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/jellyfish_results/
 ```
 
@@ -428,13 +426,13 @@ GenomeScope models the k-mer frequency distribution to estimate genomic characte
 
 The current GenomeScope analysis estimated a genome size of approximately:
 
-```text id="71bqtv"
+```text 
 2,435,945,215 bp
 ```
 
 or approximately:
 
-```text id="5r2d7j"
+```text 
 2.44 Gb
 ```
 
@@ -444,25 +442,25 @@ or approximately:
 
 PacBio HiFi sequencing coverage was estimated as:
 
-```text id="vsx49e"
+```text 
 coverage = total HiFi sequence / estimated genome size
 ```
 
 The PacBio HiFi dataset contains:
 
-```text id="brw1bz"
+```text
 101,223,029,042 bp
 ```
 
 Using the GenomeScope genome-size estimate:
 
-```text id="s9xqwo"
+```text 
 2,435,945,215 bp
 ```
 
 the estimated sequencing coverage is:
 
-```text id="d4od7p"
+```text 
 101,223,029,042 / 2,435,945,215 = 41.55
 ```
 
