@@ -4,8 +4,8 @@
 #SBATCH --mem=32g
 #SBATCH --gres=lscratch:2000
 #SBATCH --time=12:00:00
-#SBATCH --output=gambelia_download_reads_%j.out
-#SBATCH --error=gambelia_download_reads_%j.err
+#SBATCH --output=sbatch_files/gambelia_download_reads_%j.out
+#SBATCH --error=sbatch_files/gambelia_download_reads_%j.err
 #SBATCH --mail-type=ALL
 
 set -euo pipefail
@@ -27,7 +27,7 @@ echo "SRA Toolkit:"
 fasterq-dump --version
 
 # Download SRA runs
-## Default max size is 20g, need to increase since all 3 files are larger than 20g)
+## Default max size is 20g, need to increase since all 3 files are larger than 20g
 prefetch --max-size 100g -O "$TMPDIR" SRR29647188
 prefetch --max-size 100g -O "$TMPDIR" SRR29647189
 prefetch --max-size 100g -O "$TMPDIR" SRR29647190
