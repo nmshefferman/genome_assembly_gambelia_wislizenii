@@ -14,6 +14,8 @@ cd /data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii
 source /data/sheffermannm/conda/etc/profile.d/conda.sh
 conda activate hifi_env
 
+mkdir seqkit_results
+
 # Run seqkit stats and combine results for each file in one output table
 seqkit stats -a \
     raw_reads/SRR29647188_R1.fastq.gz \
@@ -21,4 +23,4 @@ seqkit stats -a \
     raw_reads/SRR29647189_R1.fastq.gz \
     raw_reads/SRR29647189_R2.fastq.gz \
     raw_reads/SRR29647190.fastq.gz \
-    > seqkit_stats.txt
+    > seqkit_results/seqkit_stats.txt
