@@ -24,7 +24,7 @@ echo "Running on: $(hostname)"
 echo "Job ID: $SLURM_JOB_ID"
 echo "Output directory: $OUTDIR"
 echo "Seqkit version:"
-seqkit --version
+seqkit version
 
 # Go to project directory
 cd "$PROJECT"
