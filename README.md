@@ -63,7 +63,7 @@ Gambelia_wislizenii/
 ├── multiqc_results/
 ├── jellyfish_results/
 ├── sbatch_files/
-└── seqkit_stats.txt
+└── seqkit_results/
 ```
 
 ---
@@ -94,7 +94,7 @@ If `mamba_install` reports that this directory already exists, Miniforge has alr
 
 The Conda installation can be loaded with:
 
-```bash id="e4kwxa"
+```bash
 source /data/sheffermannm/conda/etc/profile.d/conda.sh
 ```
 
@@ -287,9 +287,6 @@ Each combined FASTQ file contains:
 ```text
 496,367,434 reads
 ```
-
-The original SRA-specific FASTQ files are retained on Biowulf.
-
 ---
 
 ## Read quality control
@@ -369,7 +366,7 @@ Statistics were calculated for all five original FASTQ files using `seqkit stats
 Results are stored at:
 
 ```text 
-/data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/seqkit_stats.txt
+/data/Wilson_Lab/projects/Group_Genome_Assembly/Gambelia_wislizenii/seqkit_results/seqkit_stats.txt
 ```
 
 ### SeqKit summary
@@ -418,7 +415,7 @@ Jellyfish outputs are stored on Biowulf at:
 
 The resulting k-mer histogram was analyzed using [GenomeScope 2.0](http://genomescope.org/genomescope2.0/).
 
-[View the GenomeScope analysis results](http://genomescope.org/genomescope2.0/analysis.php?code=4t20BM7n1gnUtrzA7Bzr).
+[View the GenomeScope analysis results](http://genomescope.org/genomescope2.0/analysis.php?code=VNnXUhEIEmGlyOWHS5TU).
 
 GenomeScope models the k-mer frequency distribution to estimate genomic characteristics such as genome size, heterozygosity, and repetitive sequence content.
 
